@@ -25,7 +25,7 @@ app.use(limiter);
 
 app.use(logger);
 
-app.use("/api",userRoutes);
+app.use("/",userRoutes);
 app.use(errorHandler);
 
 
