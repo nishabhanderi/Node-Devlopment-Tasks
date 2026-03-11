@@ -17,7 +17,7 @@ app.use(cors());
 app.use("/uploads", express.static("uploads"));
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 100,
+  windowMs: 15 * 60 * 1000,
   max:100,
   message: " Too many request,try again later"
 });
@@ -25,11 +25,13 @@ app.use(limiter);
 
 app.use(logger);
 
-app.use("/api",require("./routes/userRoutes"));
+app.use("/api",userRoutes);
 app.use(errorHandler);
 
 
- const MONGO_URL = "mongodb://127.0.0.1:27017/internDB";
+ const MONGO_URL = process.env.MONGO_URL;
+
+ 
 
 const connectDB = async () => {
   try {
@@ -48,6 +50,7 @@ res.send("Hello User");
 });
 
 
-app.listen(8080,()=>{
-    console.log("server is listing to port 8080");
+const PORT = process.env.PORT || 8080;
+app.listen(PORT,()=>{
+    console.log(`server is listing to port ${PORT}`);
 });
