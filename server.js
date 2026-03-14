@@ -5,7 +5,7 @@ const cors = require ("cors");
 const rateLimit = require("express-rate-limit");
 const userRoutes = require ("./routes/userRoutes");
 const logger = require ("./middleware/loggerMiddleware.js");
-const errorHandler = require("./middleware/errorMiddlrware.js");
+const errorHandler = require("./middleware/errorMiddleware.js");
 
 
 const app = express();
@@ -15,6 +15,7 @@ dotenv.config();
 app.use(express.json());
 app.use(cors());
 app.use("/uploads", express.static("uploads"));
+app.set("trust proxy", 1);   
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
